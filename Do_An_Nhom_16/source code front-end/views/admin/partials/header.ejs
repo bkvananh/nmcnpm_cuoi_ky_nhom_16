@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="/css/admin.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<header class="admin-header">
+    <div class="container d-flex" style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="admin-brand">
+            <i class="fas fa-coffee"></i> CAFE MANAGER
+        </div>
+        
+        <nav class="admin-nav">
+            <a href="/admin/dashboard" class="<%= (typeof page !== 'undefined' && page === 'dashboard') ? 'active' : '' %>">
+                <i class="fas fa-tachometer-alt"></i> Tổng quan
+            </a>
+            <a href="/admin/products" class="<%= (typeof page !== 'undefined' && page === 'products') ? 'active' : '' %>">
+                <i class="fas fa-mug-hot"></i> Món ăn
+            </a>
+            <a href="/admin/posts" class="<%= (typeof page !== 'undefined' && page === 'posts') ? 'active' : '' %>">
+                <i class="fas fa-newspaper"></i> Bài viết
+            </a>
+            <a href="/admin/branches" class="<%= (typeof page !== 'undefined' && page === 'branches') ? 'active' : '' %>">
+                <i class="fas fa-store"></i> Chi nhánh
+            </a>
+            <a href="/admin/comments" class="<%= (typeof page !== 'undefined' && page === 'comments') ? 'active' : '' %>">
+                <i class="fas fa-comments"></i> Bình luận
+            </a>
+            <a href="/admin/contacts" class="<%= (typeof page !== 'undefined' && page === 'contacts') ? 'active' : '' %>">
+                <i class="fas fa-envelope"></i> Liên hệ
+            </a>
+        </nav>
+
+        <div class="user-info">
+            <span style="margin-right: 10px; font-size: 0.9rem;">Hi, <strong><%= user.full_name %></strong></span>
+            <a href="/admin/logout" style="color: #ff6b6b; text-decoration: none; font-size: 0.9rem;">
+                <i class="fas fa-sign-out-alt"></i> Thoát
+            </a>
+        </div>
+    </div>
+</header>

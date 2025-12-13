@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <%- include('../partials/head', { title: 'Tin Tức & Sự Kiện' }) %>
+    <style>
+        /* Breadcrumb Style */
+        .breadcrumb {
+            background: transparent;
+            padding: 15px 0;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #777;
+            border-bottom: 1px solid #eee;
+        }
+        .breadcrumb a { color: var(--primary); font-weight: 600; }
+        .breadcrumb span { margin: 0 5px; }
+    </style>
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <div class="container section-padding">
+        <div class="breadcrumb">
+            <a href="/">Trang chủ</a> <span>></span> Tin tức
+        </div>
+
+        <h1 class="text-center mb-3">Tin Tức Mới Nhất</h1>
+
+        <div class="news-grid mt-2">
+            <% if (posts && posts.length > 0) { %>
+                <% posts.forEach(function(post) { %>
+                    <div class="news-card">
+                        <a href="/tin-tuc/<%= post.id %>">
+                            <img src="<%= post.thumbnail_url %>" alt="<%= post.title %>" class="news-img" 
+                                 onerror="this.src='/img/placeholder/post-default.jpg'">
+                        </a>
+                        <div class="news-body">
+                            <div class="news-date">
+                                <i class="far fa-calendar-alt"></i> 
+                                <%= new Date(post.publish_date).toLocaleDateString('vi-VN') %>
+                            </div>
+                            <h3 class="news-title">
+                                <a href="/tin-tuc/<%= post.id %>"><%= post.title %></a>
+                            </h3>
+                            <div class="news-excerpt">
+                                Xem chi tiết để biết thêm thông tin về chương trình...
+                            </div>
+                            <a href="/tin-tuc/<%= post.id %>" class="btn btn-primary mt-1" style="padding: 8px 20px; font-size: 0.8rem;">Xem thêm</a>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p class="text-center">Chưa có bài viết nào.</p>
+            <% } %>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

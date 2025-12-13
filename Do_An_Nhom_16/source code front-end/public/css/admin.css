@@ -1,0 +1,90 @@
+/* Style nền tảng cho Admin */
+body {
+    background-color: #f4f6f9;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Header Admin (Màu tối) */
+.admin-header {
+    background-color: #343a40;
+    color: white;
+    padding: 15px 0;
+    margin-bottom: 30px;
+}
+
+.admin-brand {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #ffd700; /* Vàng kim */
+}
+
+/* Nav Tabs (Menu chính) */
+.admin-nav {
+    display: flex;
+    gap: 5px;
+}
+
+.admin-nav a {
+    color: #ccc;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.admin-nav a:hover, .admin-nav a.active {
+    background-color: #495057;
+    color: white;
+    text-decoration: none;
+}
+
+/* Tables */
+.table-custom {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-custom th, .table-custom td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.table-custom th {
+    background-color: #283618; /* Xanh rêu */
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.table-custom tr:last-child td { border-bottom: none; }
+
+/* Buttons Action */
+.btn-sm { padding: 5px 10px; font-size: 0.8rem; }
+.btn-edit { background-color: #17a2b8; color: white; border-radius: 4px; margin-right: 5px; }
+.btn-delete { background-color: #dc3545; color: white; border-radius: 4px; }
+
+/* Form Container */
+.form-container {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-group { margin-bottom: 20px; }
+.form-label { display: block; font-weight: 600; margin-bottom: 8px; color: #333; }
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
