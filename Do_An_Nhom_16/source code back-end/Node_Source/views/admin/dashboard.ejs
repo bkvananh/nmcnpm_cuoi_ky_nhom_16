@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Quản Trị</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <%- include('partials/header', { page: 'dashboard' }) %>
+
+    <div class="container">
+        <h2 class="mb-2">Tổng Quan Hệ Thống</h2>
+        <div style="background: white; padding: 40px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            <img src="/img/logo.png" alt="Logo" style="height: 80px; margin: 0 auto 20px; display: block;">
+            <h3>Chào mừng trở lại, <%= user.full_name %>!</h3>
+            <p style="color: #666;">Chọn một mục trên thanh menu để bắt đầu quản lý dữ liệu.</p>
+            
+            <div style="margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                <div style="background: #e8f5e9; padding: 20px; border-radius: 8px;">
+                    <h4 style="color: #283618;">Quản Lý Món</h4>
+                    <p>Thêm, sửa giá, cập nhật hình ảnh menu.</p>
+                    <a href="/admin/products" class="btn-sm" style="background: #283618; color: white; text-decoration: none; display: inline-block; margin-top: 10px;">Truy cập</a>
+                </div>
+                <div style="background: #fff3e0; padding: 20px; border-radius: 8px;">
+                    <h4 style="color: #e67e22;">Tin Tức</h4>
+                    <p>Đăng bài sự kiện và khuyến mãi mới.</p>
+                    <a href="/admin/posts" class="btn-sm" style="background: #e67e22; color: white; text-decoration: none; display: inline-block; margin-top: 10px;">Truy cập</a>
+                </div>
+                <div style="background: #e3f2fd; padding: 20px; border-radius: 8px;">
+                    <h4 style="color: #1976d2;">Bình Luận</h4>
+                    <p>Duyệt ý kiến khách hàng.</p>
+                    <a href="/admin/comments" class="btn-sm" style="background: #1976d2; color: white; text-decoration: none; display: inline-block; margin-top: 10px;">Truy cập</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

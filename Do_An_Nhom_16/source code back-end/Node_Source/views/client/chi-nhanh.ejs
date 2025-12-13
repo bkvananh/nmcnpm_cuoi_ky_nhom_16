@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <%- include('../partials/head', { title: 'Hệ Thống Cửa Hàng - Highlands Coffee' }) %>
+    <style>
+        /* Layout 2 cột cho trang chi nhánh */
+        .branch-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Chia đôi màn hình */
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        /* Danh sách bên trái */
+        .branch-list {
+            max-height: 600px;
+            overflow-y: auto; /* Cho phép cuộn nếu danh sách dài */
+            padding-right: 10px;
+        }
+
+        .branch-item {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .branch-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .branch-name { color: var(--primary); font-size: 1.1rem; margin-bottom: 5px; font-weight: 700; }
+        .branch-addr { font-size: 0.9rem; color: #555; margin-bottom: 5px; }
+        .branch-phone { color: var(--secondary); font-weight: 600; font-size: 0.9rem; }
+
+        /* Ảnh bản đồ bên phải (Static Image) */
+        .map-static {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid var(--primary);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .branch-layout { grid-template-columns: 1fr; } /* Về 1 cột */
+            .map-static { height: 300px; order: -1; /* Đưa bản đồ lên trên */ margin-bottom: 20px;}
+        }
+    </style>
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <div class="container section-padding">
+        <h1 class="text-center mb-2">Hệ Thống Cửa Hàng</h1>
+        
+        <div class="filter-box mb-3">
+            <form action="/chi-nhanh" method="GET" style="max-width: 300px;">
+                <label for="city" style="font-weight: 600; margin-bottom: 5px; display: block;">Chọn Thành Phố:</label>
+                <select name="city" id="city" class="form-control" onchange="this.form.submit()" 
+                        style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
+                    <option value="">-- Tất cả Chi Nhánh --</option>
+                    <option value="Hồ Chí Minh" <%= selectedCity == 'Hồ Chí Minh' ? 'selected' : '' %>>Hồ Chí Minh</option>
+                    <option value="Hà Nội" <%= selectedCity == 'Hà Nội' ? 'selected' : '' %>>Hà Nội</option>
+                    <option value="Đà Nẵng" <%= selectedCity == 'Đà Nẵng' ? 'selected' : '' %>>Đà Nẵng</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="branch-layout">
+            <div class="branch-list">
+                <% if (branches && branches.length > 0) { %>
+                    <% branches.forEach(function(branch) { %>
+                        <div class="branch-item">
+                            <h3 class="branch-name"><%= branch.name %></h3>
+                            <p class="branch-addr"><i class="fas fa-map-marker-alt"></i> <%= branch.address %></p>
+                            <p class="branch-phone"><i class="fas fa-phone"></i> <%= branch.phone %></p>
+                            <a href="#" class="btn-link" style="font-size: 0.8rem; color: var(--primary);">
+                                <i class="fas fa-directions"></i> Chỉ đường
+                            </a>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>Không tìm thấy cửa hàng nào tại khu vực này.</p>
+                <% } %>
+            </div>
+
+            <div class="map-container">
+                <img src="https://placehold.co/800x600/283618/FFF?text=Ban+Do+Demo+(Anh+Tinh)" alt="Bản đồ chi nhánh" class="map-static">
+                <p class="text-center mt-1" style="font-size: 0.85rem; color: #777;">*Đây là ảnh mô phỏng vị trí các cửa hàng.</p>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>
