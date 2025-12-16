@@ -1,27 +1,68 @@
+<!-- =========================================
+     CLIENT HEADER - FROSTED GLASS NAVIGATION
+     ========================================= -->
 <header>
     <div class="container header-inner">
+        <!-- Logo -->
         <a href="/" class="logo">
-            <img src="/img/logo.png" alt="Highlands Logo">
+            <img src="/img/logo.png" alt="Catfe Logo" onerror="this.src='https://placehold.co/120x60/283618/FEFAF0?text=CATFE&font=montserrat'">
         </a>
 
+        <!-- Main Navigation -->
         <nav>
             <ul>
-                <li><a href="/">Trang chủ</a></li>
+                <li>
+                    <a href="/" class="<%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>">
+                        <i class="fas fa-home"></i> Trang chủ
+                    </a>
+                </li>
+                
                 <li class="dropdown">
-                    <a href="/thuc-don">Thực đơn <i class="fas fa-chevron-down"></i></a>
+                    <a href="/thuc-don" class="<%= typeof page !== 'undefined' && page === 'menu' ? 'active' : '' %>">
+                        <i class="fas fa-utensils"></i> Thực đơn <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i>
+                    </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/thuc-don?cat=1">Cà Phê</a></li>
-                        <li><a href="/thuc-don?cat=3">Freeze</a></li>
-                        <li><a href="/thuc-don?cat=2">Trà</a></li>
-                        <li><a href="/thuc-don?cat=4">Bánh Ngọt</a></li>
+                        <li><a href="/thuc-don?cat=1"><i class="fas fa-mug-hot"></i> Cà Phê</a></li>
+                        <li><a href="/thuc-don?cat=3"><i class="fas fa-snowflake"></i> Freeze</a></li>
+                        <li><a href="/thuc-don?cat=2"><i class="fas fa-leaf"></i> Trà</a></li>
+                        <li><a href="/thuc-don?cat=4"><i class="fas fa-cookie-bite"></i> Bánh Ngọt</a></li>
                     </ul>
                 </li>
-                <li><a href="/tin-tuc">Tin tức</a></li>
-                <li><a href="/chi-nhanh">Cửa hàng</a></li>
-                <li><a href="/lien-he">Liên hệ</a></li>
+                
+                <li>
+                    <a href="/tin-tuc" class="<%= typeof page !== 'undefined' && page === 'news' ? 'active' : '' %>">
+                        <i class="fas fa-newspaper"></i> Tin tức
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/chi-nhanh" class="<%= typeof page !== 'undefined' && page === 'branches' ? 'active' : '' %>">
+                        <i class="fas fa-store"></i> Cửa hàng
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/lien-he" class="<%= typeof page !== 'undefined' && page === 'contact' ? 'active' : '' %>">
+                        <i class="fas fa-envelope"></i> Liên hệ
+                    </a>
+                </li>
             </ul>
         </nav>
 
-        <div class="header-icons" style="width: 0;"></div> 
+        <!-- Right Side Icons (Placeholder for future features) -->
+        <div class="header-icons" style="width: 60px;"></div>
     </div>
 </header>
+
+<!-- JavaScript for Header Scroll Effect -->
+<script>
+    // Add 'scrolled' class when user scrolls down
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+</script>

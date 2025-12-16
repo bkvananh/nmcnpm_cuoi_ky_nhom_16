@@ -1,25 +1,58 @@
 /* =========================================
-   1. VARIABLES & SETUP
+   CATFE GLASSMORPHISM REDESIGN - CLIENT
+   Theme: Fresh Nature / Cool Glass
    ========================================= */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+/* =========================================
+   1. CSS VARIABLES - TRANSLUCENT PALETTE
+   ========================================= */
 :root {
-    /* Bảng màu từ Color Palette */
-    --primary: #283618;   /* Xanh Rêu Đậm (Chủ đạo) */
-    --secondary: #936639; /* Nâu Đồng (Nhấn) */
-    --bg: #FEFAF0;        /* Màu Kem (Nền) */
-    --text: #582F0E;      /* Nâu Đậm (Chữ) */
-    --white: #ffffff;
-    --gray-light: #f1f1f1;
+    /* === GLASS LAYERS === */
+    --glass-light: rgba(254, 250, 240, 0.25);      /* Cream glass - Cards, panels */
+    --glass-medium: rgba(254, 250, 240, 0.45);     /* Cream glass - Headers */
+    --glass-dark: rgba(40, 54, 24, 0.15);          /* Green glass - Accents */
     
-    /* Cấu hình chung */
-    --border-radius: 8px;
+    /* === ACCENT COLORS === */
+    --accent-green: rgba(40, 54, 24, 0.85);        /* Moss green - Strong text */
+    --accent-green-hover: rgba(40, 54, 24, 0.95);  /* Darker on hover */
+    --accent-brown: rgba(147, 102, 57, 0.85);      /* Brown - Prices */
+    --accent-mint: rgba(163, 197, 151, 0.30);      /* Mint - Fresh highlights */
+    --accent-sage: rgba(127, 167, 116, 0.25);      /* Sage - Gradients */
+    
+    /* === BORDERS & EFFECTS === */
+    --border-glass: rgba(255, 255, 255, 0.18);     /* Frosted edge */
+    --border-shadow: rgba(40, 54, 24, 0.08);       /* Subtle depth */
+    --shadow-glass: 0 8px 32px 0 rgba(40, 54, 24, 0.12);
+    --shadow-hover: 0 12px 40px 0 rgba(40, 54, 24, 0.18);
+    
+    /* === TEXT COLORS === */
+    --text-primary: rgba(40, 54, 24, 0.95);        /* Dark green - High contrast */
+    --text-secondary: rgba(40, 54, 24, 0.65);      /* Muted - Descriptions */
+    --text-on-glass: rgba(255, 255, 255, 0.90);    /* White on dark glass */
+    
+    /* === GRADIENTS === */
+    --bg-gradient: linear-gradient(
+        135deg,
+        rgba(163, 197, 151, 0.15) 0%,    /* Mint top-left */
+        rgba(254, 250, 240, 0.25) 50%,   /* Cream center */
+        rgba(147, 102, 57, 0.12) 100%    /* Brown bottom-right */
+    );
+    
+    /* === BLUR VALUES === */
+    --blur-light: blur(12px);
+    --blur-medium: blur(16px);
+    --blur-heavy: blur(20px);
+    
+    /* === SPACING === */
     --container-width: 1200px;
-    --transition: all 0.3s ease-in-out;
+    --border-radius: 16px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* =========================================
-   2. RESET CSS
+   2. RESET & BASE STYLES
    ========================================= */
 * {
     margin: 0;
@@ -29,10 +62,24 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
     font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--text-primary);
+    
+    /* === BACKGROUND: Forest/Nature Image (Placeholder) === */
+    background: 
+        var(--bg-gradient),
+        url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920') center/cover fixed;
+    
+    /* Fallback if image fails */
+    background-color: #e8f4e3;
+    
+    /* Smooth scrolling */
+    scroll-behavior: smooth;
+    
+    /* Prevent horizontal scroll */
+    overflow-x: hidden;
 }
 
 /* =========================================
@@ -40,98 +87,128 @@ body {
    ========================================= */
 h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 1rem;
+    color: var(--accent-green);
     line-height: 1.3;
+    letter-spacing: -0.02em;
 }
 
-h1 { font-size: 2.5rem; }
+h1 { font-size: 2.5rem; font-weight: 800; }
 h2 { font-size: 2rem; }
 h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
 
 p {
     margin-bottom: 1rem;
-    color: var(--text);
+    color: var(--text-secondary);
+    font-weight: 400;
 }
 
 a {
     text-decoration: none;
-    color: var(--primary);
+    color: var(--accent-green);
     transition: var(--transition);
 }
 
 a:hover {
-    color: var(--secondary);
+    color: var(--accent-brown);
 }
 
-ul {
-    list-style: none;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
+ul { list-style: none; }
+img { max-width: 100%; height: auto; display: block; }
 
 /* =========================================
    4. UTILITY CLASSES
    ========================================= */
-/* Container giới hạn chiều rộng trang */
 .container {
     max-width: var(--container-width);
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 20px;
 }
 
-/* Căn chỉnh văn bản */
 .text-center { text-align: center; }
 .text-left { text-align: left; }
 .text-right { text-align: right; }
 
-/* Nút bấm (Button) - Style Highlands */
-.btn {
-    display: inline-block;
-    padding: 12px 28px;
-    border-radius: var(--border-radius);
-    font-weight: 600;
-    text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-    transition: var(--transition);
-    font-size: 0.9rem;
-}
-
-.btn-primary {
-    background-color: var(--primary); /* Nền Xanh */
-    color: var(--white);
-    border: 1px solid var(--primary);
-}
-
-.btn-primary:hover {
-    background-color: var(--secondary); /* Hover chuyển sang Nâu */
-    border-color: var(--secondary);
-    color: var(--white);
-}
-
-/* Spacer (Khoảng cách) */
+/* Spacing utilities */
 .mt-1 { margin-top: 10px; }
 .mt-2 { margin-top: 20px; }
 .mt-3 { margin-top: 30px; }
 .mb-1 { margin-bottom: 10px; }
 .mb-2 { margin-bottom: 20px; }
+.mb-3 { margin-bottom: 30px; }
 .section-padding { padding: 60px 0; }
+
 /* =========================================
-   5. HEADER & NAVIGATION (Sticky & Dropdown)
+   5. GLASSMORPHISM BUTTON SYSTEM
+   ========================================= */
+.btn {
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 50px; /* Pill shape */
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary {
+    background: var(--glass-medium);
+    backdrop-filter: var(--blur-light);
+    -webkit-backdrop-filter: var(--blur-light);
+    border: 1px solid var(--border-glass);
+    color: var(--accent-green);
+    box-shadow: var(--shadow-glass),
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn-primary:hover {
+    background: rgba(40, 54, 24, 0.25);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    color: var(--accent-green-hover);
+}
+
+.btn-outline-primary {
+    background: transparent;
+    border: 2px solid var(--accent-green);
+    color: var(--accent-green);
+}
+
+.btn-outline-primary:hover {
+    background: var(--glass-light);
+    backdrop-filter: var(--blur-light);
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   6. HEADER - FROSTED GLASS NAV
    ========================================= */
 header {
-    background-color: var(--primary); /* Xanh Rêu Đậm */
-    padding: 0;
-    /* UX-01: Sticky Header - Dính chặt lên trên cùng */
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    
+    /* Glass effect */
+    background: var(--glass-medium);
+    backdrop-filter: var(--blur-medium) saturate(180%);
+    -webkit-backdrop-filter: var(--blur-medium) saturate(180%);
+    
+    /* Border & Shadow */
+    border-bottom: 1px solid var(--border-glass);
+    box-shadow: 0 4px 30px rgba(40, 54, 24, 0.08);
+    
+    transition: var(--transition);
+}
+
+header.scrolled {
+    background: rgba(254, 250, 240, 0.60);
+    backdrop-filter: var(--blur-heavy);
+    box-shadow: 0 8px 40px rgba(40, 54, 24, 0.15);
 }
 
 .header-inner {
@@ -142,45 +219,66 @@ header {
 }
 
 .logo img {
-    height: 60px; /* Chiều cao logo */
+    height: 60px;
     width: auto;
+    filter: drop-shadow(0 2px 8px rgba(40, 54, 24, 0.15));
+    transition: var(--transition);
 }
 
-/* Menu chính */
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+/* Main Navigation */
 nav ul {
     display: flex;
-    gap: 30px;
+    gap: 10px;
+    align-items: center;
 }
 
 nav ul li {
-    position: relative; /* Để căn chỉnh dropdown menu con */
+    position: relative;
 }
 
 nav ul li a {
-    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    color: var(--text-primary);
     font-weight: 600;
-    text-transform: uppercase;
     font-size: 0.9rem;
-    padding: 10px 0;
-    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    transition: var(--transition);
 }
 
-nav ul li a:hover, 
+nav ul li a:hover,
 nav ul li a.active {
-    color: #ffd700; /* Màu vàng kim khi hover */
+    background: var(--glass-light);
+    backdrop-filter: var(--blur-light);
+    color: var(--accent-green-hover);
+    box-shadow: 0 4px 15px rgba(40, 54, 24, 0.1);
 }
 
-/* Dropdown Menu (Menu cấp 2) */
+/* Dropdown Menu */
 .dropdown-menu {
-    display: none; /* Ẩn mặc định */
+    display: none;
     position: absolute;
-    top: 100%;
+    top: calc(100% + 10px);
     left: 0;
-    background-color: var(--white);
     min-width: 200px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    border-radius: 4px;
-    padding: 10px 0;
+    padding: 8px;
+    border-radius: var(--border-radius);
+    
+    /* Glass effect */
+    background: var(--glass-medium);
+    backdrop-filter: var(--blur-medium);
+    -webkit-backdrop-filter: var(--blur-medium);
+    border: 1px solid var(--border-glass);
+    box-shadow: var(--shadow-glass);
+    
     z-index: 1100;
 }
 
@@ -190,50 +288,57 @@ nav ul li a.active {
 }
 
 .dropdown-menu li a {
-    color: var(--text); /* Chữ màu nâu */
-    padding: 10px 20px;
-    text-transform: none; /* Không viết hoa menu con */
-    transition: background 0.2s;
+    display: block;
+    padding: 12px 16px;
+    border-radius: 12px;
+    color: var(--text-primary);
+    text-transform: none;
+    font-size: 0.9rem;
 }
 
 .dropdown-menu li a:hover {
-    background-color: var(--gray-light);
-    color: var(--primary);
+    background: rgba(163, 197, 151, 0.2);
+    color: var(--accent-green-hover);
 }
 
-/* Hiển thị menu khi hover vào thẻ cha .dropdown */
 .dropdown:hover .dropdown-menu {
     display: block;
-    animation: fadeIn 0.3s ease;
+    animation: fadeInDown 0.3s ease;
 }
 
-/* Animation nhẹ cho dropdown */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 /* =========================================
-   6. PRODUCT CARDS (Thẻ sản phẩm)
+   7. PRODUCT CARDS - GLASS DESIGN
    ========================================= */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive Grid */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 30px;
 }
 
 .product-card {
-    background-color: var(--white);
     border-radius: var(--border-radius);
-    overflow: hidden; /* Để ảnh zoom không bị tràn ra ngoài */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* shadow-sm */
+    overflow: hidden;
     transition: var(--transition);
-    border: 1px solid transparent;
+    
+    /* Glass effect */
+    background: var(--glass-light);
+    backdrop-filter: var(--blur-light);
+    -webkit-backdrop-filter: var(--blur-light);
+    border: 1px solid var(--border-glass);
+    box-shadow: var(--shadow-glass),
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
 }
 
 .product-card:hover {
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    border-color: var(--secondary); /* Viền màu nâu đồng khi hover */
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover),
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .card-img-wrapper {
@@ -241,23 +346,34 @@ nav ul li a.active {
     height: 250px;
     overflow: hidden;
     position: relative;
-    background-color: #f9f9f9;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.card-img-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(40, 54, 24, 0.1) 100%
+    );
+    pointer-events: none;
 }
 
 .card-img-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease; /* Hiệu ứng mượt */
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Effect: Zoom ảnh khi hover vào card */
 .product-card:hover .card-img-wrapper img {
-    transform: scale(1.1);
+    transform: scale(1.15);
 }
 
 .card-body {
-    padding: 20px;
+    padding: 24px;
     text-align: center;
 }
 
@@ -265,73 +381,231 @@ nav ul li a.active {
     font-size: 1.1rem;
     font-weight: 700;
     margin-bottom: 8px;
-    color: var(--text);
+    color: var(--text-primary);
 }
 
 .product-price {
-    font-size: 1rem;
-    color: var(--secondary); /* Giá tiền màu nâu đồng */
-    font-weight: 600;
-    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: var(--accent-brown);
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: 0.3px;
 }
 
 /* =========================================
-   7. FOOTER (Chân trang)
+   8. FOOTER - FROSTED GLASS
    ========================================= */
 footer {
-    background-color: var(--primary); /* Nền tối */
-    color: var(--white);
-    padding-top: 60px;
-    padding-bottom: 20px;
-    margin-top: 60px;
+    margin-top: 80px;
+    padding: 60px 0 20px;
+    
+    /* Glass effect */
+    background: rgba(40, 54, 24, 0.85);
+    backdrop-filter: var(--blur-medium);
+    -webkit-backdrop-filter: var(--blur-medium);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.1);
+    
+    color: var(--text-on-glass);
 }
 
 .footer-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 cột đều nhau */
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
     margin-bottom: 40px;
     padding-bottom: 40px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-col h4 {
-    color: #ffd700; /* Tiêu đề cột màu vàng kim */
+    color: rgba(163, 197, 151, 0.95); /* Mint green for titles */
     font-size: 1.2rem;
     margin-bottom: 20px;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .footer-col ul li {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .footer-col ul li a {
-    color: rgba(255,255,255,0.8);
+    color: rgba(255, 255, 255, 0.75);
     font-size: 0.95rem;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .footer-col ul li a:hover {
-    color: var(--white);
-    padding-left: 5px; /* Hiệu ứng đẩy nhẹ sang phải */
+    color: rgba(163, 197, 151, 0.95);
+    padding-left: 8px;
+}
+
+.footer-col ul li i {
+    color: var(--accent-mint);
 }
 
 .copyright {
     text-align: center;
     font-size: 0.85rem;
+    opacity: 0.6;
+    letter-spacing: 0.5px;
+}
+
+/* =========================================
+   9. FORM CONTROLS - GLASS INPUT
+   ========================================= */
+.form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    
+    /* Glass effect */
+    background: var(--glass-light);
+    backdrop-filter: var(--blur-light);
+    -webkit-backdrop-filter: var(--blur-light);
+    border: 1px solid var(--border-glass);
+    color: var(--text-primary);
+    
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    outline: none;
+    background: rgba(254, 250, 240, 0.35);
+    border-color: rgba(163, 197, 151, 0.5);
+    box-shadow: 0 0 0 4px rgba(163, 197, 151, 0.1),
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+}
+
+.form-control::placeholder {
+    color: var(--text-secondary);
     opacity: 0.7;
 }
 
-/* Media Query cho Mobile (Cơ bản) */
+/* =========================================
+   10. RESPONSIVE DESIGN
+   ========================================= */
 @media (max-width: 768px) {
-    .header-inner { flex-direction: column; height: auto; padding: 10px 0; }
-    nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
-    .footer-grid { grid-template-columns: 1fr; text-align: center; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    
+    .header-inner {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 0;
+        gap: 15px;
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    nav ul li a {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+    
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 30px;
+    }
+    
+    .section-padding {
+        padding: 40px 0;
+    }
 }
 
-/* Hiệu ứng khi header được cuộn */
-header.scrolled {
-    background-color: rgba(40, 54, 24, 0.95); /* Xanh rêu trong suốt nhẹ */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Đổ bóng đậm hơn */
-    transition: all 0.3s ease;
+/* =========================================
+   11. ANIMATIONS & MICRO-INTERACTIONS
+   ========================================= */
+@keyframes floatGlass {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.product-card {
+    animation: floatGlass 6s ease-in-out infinite;
+}
+
+.product-card:nth-child(2n) {
+    animation-delay: 0.5s;
+}
+
+.product-card:nth-child(3n) {
+    animation-delay: 1s;
+}
+
+/* Smooth page transitions */
+body {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* =========================================
+   12. SECTION TITLE STYLES
+   ========================================= */
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+    color: var(--accent-green);
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(163, 197, 151, 0.8) 50%,
+        transparent 100%
+    );
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+/* =========================================
+   13. ACCESSIBILITY ENHANCEMENTS
+   ========================================= */
+*:focus-visible {
+    outline: 2px solid rgba(163, 197, 151, 0.6);
+    outline-offset: 3px;
+}
+
+/* Reduced motion for users with vestibular disorders */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
