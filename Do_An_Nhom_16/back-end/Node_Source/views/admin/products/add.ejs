@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Món Mới</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <%- include('../partials/header', { page: 'products' }) %>
+
+    <div class="container">
+        <div class="form-container">
+            <h2 style="margin-bottom: 20px; text-align: center;">Thêm Món Mới</h2>
+            
+            <form action="/admin/products/store" method="POST">
+                <div class="form-group">
+                    <label class="form-label">Tên Món:</label>
+                    <input type="text" name="name" class="form-control" placeholder="VD: Phin Sữa Đá" required>
+                </div>
+
+                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <label class="form-label">Giá (VNĐ):</label>
+                        <input type="number" name="price" class="form-control" placeholder="29000" required>
+                    </div>
+                    <div>
+                        <label class="form-label">Danh Mục:</label>
+                        <select name="category_id" class="form-control">
+                            <option value="1">Cà Phê</option>
+                            <option value="2">Trà</option>
+                            <option value="3">Freeze</option>
+                            <option value="4">Bánh Ngọt</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Link Ảnh (URL):</label>
+                    <input type="text" name="image_url" class="form-control" placeholder="https://..." required>
+                    <small style="color: #666;">*Copy link ảnh từ internet hoặc dùng ảnh có sẵn.</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Mô tả:</label>
+                    <textarea name="description" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label style="cursor: pointer;">
+                        <input type="checkbox" name="is_featured" value="1"> 
+                        <strong>Đặt làm món nổi bật (Hiện trang chủ)</strong>
+                    </label>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="/admin/products" style="color: #666; margin-right: 20px; text-decoration: none;">Hủy bỏ</a>
+                    <button type="submit" style="background: #283618; color: white; padding: 12px 40px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">
+                        Lưu Món
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

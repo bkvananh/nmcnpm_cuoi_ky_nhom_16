@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <%- include('../partials/head', { title: 'Hệ Thống Cửa Hàng - Catfe' }) %>
+    <style>
+        /* Layout 2 cột cho trang chi nhánh */
+        .branch-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Chia đôi màn hình */
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        /* Danh sách bên trái */
+        .branch-list {
+            max-height: 600px;
+            overflow-y: auto; /* Cho phép cuộn nếu danh sách dài */
+            padding-right: 10px;
+        }
+
+        .branch-item {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer; /* Thêm con trỏ tay để biết là click được */
+        }
+
+        .branch-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Style cho chi nhánh đang được chọn */
+        .branch-item.active {
+            border: 2px solid var(--primary);
+            background-color: #f1f8e9; /* Màu nền xanh nhạt */
+        }
+
+        .branch-name { color: var(--primary); font-size: 1.1rem; margin-bottom: 5px; font-weight: 700; }
+        .branch-addr { font-size: 0.9rem; color: #555; margin-bottom: 5px; }
+        .branch-phone { color: var(--secondary); font-weight: 600; font-size: 0.9rem; }
+
+        /* Ảnh bản đồ bên phải (hoặc Iframe) */
+        .map-static { /* Class cũ giữ nguyên tên để không vỡ layout */
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            border-radius: 8px;
+            border: 2px solid var(--primary);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .branch-layout { grid-template-columns: 1fr; } /* Về 1 cột */
+            .map-container { height: 300px; order: -1; margin-bottom: 20px;}
+        }
+    </style>
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <div class="container section-padding">
+        <h1 class="text-center mb-2">Hệ Thống Cửa Hàng</h1>
+        
+        <div class="filter-box mb-3">
+            <form action="/chi-nhanh" method="GET" style="max-width: 300px;">
+                <label for="city" style="font-weight: 600; margin-bottom: 5px; display: block;">Chọn Thành Phố:</label>
+                <select name="city" id="city" class="form-control" onchange="this.form.submit()" 
+                        style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
+                    <option value="">-- Tất cả Chi Nhánh --</option>
+                    <option value="Hồ Chí Minh" <%= selectedCity == 'Hồ Chí Minh' ? 'selected' : '' %>>Hồ Chí Minh</option>
+                    <option value="Hà Nội" <%= selectedCity == 'Hà Nội' ? 'selected' : '' %>>Hà Nội</option>
+                    <option value="Đà Nẵng" <%= selectedCity == 'Đà Nẵng' ? 'selected' : '' %>>Đà Nẵng</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="branch-layout">
+            <div class="branch-list">
+                <% if (branches && branches.length > 0) { %>
+                    <% branches.forEach(function(branch, index) { %>
+                        <div class="branch-item <%= index === 0 ? 'active' : '' %>" 
+                             onclick="changeMap('<%= branch.map_iframe %>', this)">
+                            <h3 class="branch-name"><%= branch.name %></h3>
+                            <p class="branch-addr"><i class="fas fa-map-marker-alt"></i> <%= branch.address %></p>
+                            <p class="branch-phone"><i class="fas fa-phone"></i> <%= branch.phone %></p>
+                            <span class="btn-link" style="font-size: 0.8rem; color: var(--primary);">
+                                <i class="fas fa-map"></i> Xem bản đồ
+                            </span>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>Không tìm thấy cửa hàng nào tại khu vực này.</p>
+                <% } %>
+            </div>
+
+            <div class="map-container">
+                <iframe id="google-map"
+                    class="map-static"
+                    src="<%= (branches && branches.length > 0) ? branches[0].map_iframe : '' %>" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+
+    <script>
+        function changeMap(linkMap, element) {
+            // 1. Đổi link iframe sang chi nhánh mới
+            document.getElementById('google-map').src = linkMap;
+
+            // 2. Xóa class active ở tất cả các item cũ
+            var items = document.querySelectorAll('.branch-item');
+            items.forEach(item => item.classList.remove('active'));
+
+            // 3. Thêm class active cho item vừa click
+            element.classList.add('active');
+        }
+    </script>
+</body>
+</html>
